@@ -1,3 +1,4 @@
+using System.Collections;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,10 +7,19 @@ using WebAppTiendaEXAM.Data;
 
 namespace WebAppTiendaEXAM.Models
 {
-    public class Productos
+    public class Productos : IEnumerable
     {
+        public Productos(int id, string nombre, string descripcion, decimal precio, int stock)
+        {
+            Id = id;
+            Nombre = nombre;
+            Descripcion = descripcion;
+            Precio = precio;
+            Stock = stock;
+        }
+
         [Key]
-        public int Id { get; set; }
+        public int Id { get; init; }
 
         [Required(ErrorMessage = "El campo Nombre es obligatorio")]
         [StringLength(100, ErrorMessage = "El nombre no puede exceder los 100 caracteres")]
@@ -25,5 +35,10 @@ namespace WebAppTiendaEXAM.Models
         [Required(ErrorMessage = "El campo Stock es obligatorio")]
         [Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser negativo")]
         public int Stock { get; init; }
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
